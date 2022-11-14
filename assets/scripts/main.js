@@ -65,6 +65,20 @@ function initializeServiceWorker() {
  * @returns {Array<Object>} An array of recipes found in localStorage
  */
 async function getRecipes() {
+  let recipe = localStorage.getItem('recipes');
+  let fetchedRec = [];
+  if (recipe) {
+    return JSON.parse(recipe);
+  }
+  let promise = new Promise(function (resolve, reject) {
+    for (let i = 0; i < RECIPE_URLS.length; i++) {
+
+    }
+  });
+  return promise;
+  
+  // return new Promise(function(resolve, reject)
+
   // EXPOSE - START (All expose numbers start with A)
   // A1. TODO - Check local storage to see if there are any recipes.
   //            If there are recipes, return them.
