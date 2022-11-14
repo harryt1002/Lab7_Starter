@@ -70,9 +70,21 @@ async function getRecipes() {
   if (recipe) {
     return JSON.parse(recipe);
   }
-  let promise = new Promise(function (resolve, reject) {
-    for (let i = 0; i < RECIPE_URLS.length; i++) {
-
+  let promise = new Promise(async function (resolve, reject) {
+    for (var i = 0; i < RECIPE_URLS.length; i++) {
+      try {
+        let URL = await fetch(RECIPE_URLS[i]);
+        let JSONData = await URL.json();
+        fetchedRec.push(JSONData);
+        if (i == (RECIPE_URLS.length - 1)) {
+          saveRecipesToStorage(fetchedRec);
+        }
+        resolve(fetchedRec);
+      }
+      catch (error) {
+        console.error(error);
+        reject(error);
+      }
     }
   });
   return promise;
